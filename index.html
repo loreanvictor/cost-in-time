@@ -6,7 +6,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree" rel="stylesheet">
 
     <link href="index.css" rel="stylesheet">
     <script src="index.js"></script>
@@ -17,16 +17,17 @@
         <p>How much do you want to spend?</p>
         <br>
         <div class="currency">
-          <span euro>€</span>
+          <span euro>&euro;</span>
           <span dollar>$</span>
-          <span pound>£</span>
-          <span yen>¥</span>
-          <span rupee>₹</span>
-          <span ruble>₽</span>
+          <span pound>&pound;</span>
+          <span yen>&yen;</span>
+          <span rupee>&#8377;</span>
+          <span ruble>&#8381;</span>
         </div>
         <input id="cost" type="text" placeholder="Enter the price ..."/>
         <div id="result">
-          <p>It will cost you <span id="amount"></span> working time.</p>
+          <div>It will cost you <span id="amount"></span> of your life.</div>
+          <div class="small" id="working">or working <span id="workingamount"></span>.</div>
         </div>
       </div>
     </section>

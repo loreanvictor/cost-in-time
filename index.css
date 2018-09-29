@@ -1,8 +1,82 @@
 body, html, * {
   padding: 0;
   margin: 0;
-  font-family: 'Poiret One', cursive;
+  font-family: 'Bai Jamjuree', sans-serif;
   font-size: 24px;
+  color: #424242;
+  background: #f5f5f5;
+}
+
+* {
+  background: inherit;
+  color: inherit;
+  border-color: inherit;
+}
+
+body.blue {
+  background: #bcdbdf;
+  color: #235784;
+  border-color: #235784;
+}
+
+body.blue-inv {
+  background: #182952;
+  color: #e14594;
+  border-color: #e14594;
+}
+
+body.green {
+  background: #d0efb5;
+  color: #155e63;
+  border-color: #155e63;
+}
+
+body.green-inv {
+  background: #144d53;
+  color: #e4eddb;
+  border-color: #e4eddb;
+}
+
+body.purple {
+  background: #ffdfd3;
+  color: #957dad;
+  border-color: #957dad;
+}
+
+body.purple-inv {
+  background: #77529e;
+  color: #dcb5ff;
+  border-color: #dcb5ff;
+}
+
+body.orange {
+  background: #f8c43a;
+  color: #c93d1b;
+  border-color: #c93d1b;
+}
+
+body.orange-inv {
+  background: #7c203a;
+  color: #ff9f68;
+  border-color: #ff9f68;
+}
+
+body.yellow {
+  background: #f2f2b0;
+  color: #5c3c10;
+  border-color: #5c3c10;
+}
+
+body.yellow-inv {
+  background: #005874;
+  color: #ffbe00;
+  border-color: #ffbe00;
+}
+
+body.black {
+  background: #424242;
+  color: #f5f5f5;
+  border-color: #f5f5f5;
 }
 
 section {
@@ -11,7 +85,6 @@ section {
   position: absolute;
   left: 0;
   top: 0;
-  background: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,34 +92,67 @@ section {
 
 section>div {
   width: 50vw;
+  height: 25vw;
+}
+
+p {
+  margin: 0;
+}
+
+.small {
+  font-size: 20px;
+}
+
+span {
+  font-size: inherit;
+  color: inherit;
+}
+
+.num {
+  font-size: 32px;
+}
+
+.small .num {
+  font-size: 24px;
 }
 
 input {
   border: none;
   outline: none;
   font-size: 32px;
-  border-bottom: 1px dashed rgba(0, 0, 0, .25);
+  border-bottom: 2px dashed;
+  display: inline-block;
+  vertical-align: baseline;
+  width: 256px;
 }
 
 input::placeholder {
   font-size: 24px;
-}
-
-input:focus {
-  border-bottom: 1px solid rgba(0, 0, 0, .25);
+  opacity: 0.25;
+  color: inherit;
 }
 
 #result {
   margin-top: 32px;
   opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .15s, transform .15s;
 }
 
 #result.active {
   opacity: 1;
+  transform: translateY(0);
 }
 
-.num {
-  font-size: 32px;
+#result #working {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .15s, transform .15s;
+}
+
+#result.active #working.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .currency {
@@ -57,7 +163,6 @@ input:focus {
   width: 24px;
   height: 32px;
   font-weight: bold;
-  color: rgba(0, 0, 0, .5);
 }
 
 .currency span {
@@ -65,6 +170,9 @@ input:focus {
   position: absolute;
   top: -8px;
   opacity: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   transform: translateX(32px);
   transition: transform .15s, opacity .15s;
 }
