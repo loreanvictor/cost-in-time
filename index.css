@@ -1,0 +1,81 @@
+body, html, * {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poiret One', cursive;
+  font-size: 24px;
+}
+
+section {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section>div {
+  width: 50vw;
+}
+
+input {
+  border: none;
+  outline: none;
+  font-size: 32px;
+  border-bottom: 1px dashed rgba(0, 0, 0, .25);
+}
+
+input::placeholder {
+  font-size: 24px;
+}
+
+input:focus {
+  border-bottom: 1px solid rgba(0, 0, 0, .25);
+}
+
+#result {
+  margin-top: 32px;
+  opacity: 0;
+}
+
+#result.active {
+  opacity: 1;
+}
+
+.num {
+  font-size: 32px;
+}
+
+.currency {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  width: 24px;
+  height: 32px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, .5);
+}
+
+.currency span {
+  font-size: 32px;
+  position: absolute;
+  top: -8px;
+  opacity: 0;
+  transform: translateX(32px);
+  transition: transform .15s, opacity .15s;
+}
+
+.currency span.passed {
+  transform: translateX(-32px);
+}
+
+body[currency="euro"] .currency [euro] { opacity: 1; transform: translateX(0); }
+body[currency="dollar"] .currency [dollar] { opacity: 1; transform: translateX(0); }
+body[currency="pound"] .currency [pound] { opacity: 1; transform: translateX(0); }
+body[currency="yen"] .currency [yen] { opacity: 1; transform: translateX(0); }
+body[currency="rupee"] .currency [rupee] { opacity: 1; transform: translateX(0); }
+body[currency="ruble"] .currency [ruble] { opacity: 1; transform: translateX(0); }

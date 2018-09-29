@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Cost In Life</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+
+    <link href="index.css" rel="stylesheet">
+    <script src="index.js"></script>
+  </head>
+  <body currency="euro">
+    <section id="main">
+      <div>
+        <p>How much do you want to spend?</p>
+        <br>
+        <div class="currency">
+          <span euro>€</span>
+          <span dollar>$</span>
+          <span pound>£</span>
+          <span yen>¥</span>
+          <span rupee>₹</span>
+          <span ruble>₽</span>
+        </div>
+        <input id="cost" type="text" placeholder="Enter the price ..."/>
+        <div id="result">
+          <p>It will cost you <span id="amount"></span> working time.</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
