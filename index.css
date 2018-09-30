@@ -1,7 +1,7 @@
 body, html, * {
   padding: 0;
   margin: 0;
-  font-family: 'Bai Jamjuree', sans-serif;
+  font-family: 'Bai Jamjuree', 'XMYekanRegular', sans-serif;
   font-size: 24px;
   color: #424242;
   background: #f5f5f5;
@@ -103,6 +103,10 @@ p {
   font-size: 20px;
 }
 
+.tiny {
+  font-size: 16px;
+}
+
 span {
   font-size: inherit;
   color: inherit;
@@ -114,6 +118,10 @@ span {
 
 .small .num {
   font-size: 24px;
+}
+
+.tiny .num {
+  font-size: 18px;
 }
 
 input {
@@ -162,7 +170,13 @@ input::placeholder {
   position: relative;
   width: 24px;
   height: 32px;
+  margin-right: 4px;
   font-weight: bold;
+}
+
+.tiny .currency {
+  width: 12px;
+  height: 8px;
 }
 
 .currency span {
@@ -177,8 +191,22 @@ input::placeholder {
   transition: transform .15s, opacity .15s;
 }
 
+.tiny .currency span {
+  font-size: 16px;
+}
+
 .currency span.passed {
   transform: translateX(-32px);
+}
+
+.currency [rial] {
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+.tiny .currency [rial] {
+  font-size: 10px;
+  margin-top: 4px;
 }
 
 body[currency="euro"] .currency [euro] { opacity: 1; transform: translateX(0); }
@@ -187,3 +215,4 @@ body[currency="pound"] .currency [pound] { opacity: 1; transform: translateX(0);
 body[currency="yen"] .currency [yen] { opacity: 1; transform: translateX(0); }
 body[currency="rupee"] .currency [rupee] { opacity: 1; transform: translateX(0); }
 body[currency="ruble"] .currency [ruble] { opacity: 1; transform: translateX(0); }
+body[currency="rial"] .currency [rial] { opacity: 1; transform: translateX(0); }

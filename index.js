@@ -32,7 +32,7 @@ var calc = function(price, income) {
 
 var show = function() {
   try {
-    var price = parseInt($(this).val());
+    var price = parseInt($(this).val().replace(/\,/g, ''));
     if (price > 0) {
       var calcresult = calc(price, 10);
       $('#main #result').addClass('active');
@@ -53,7 +53,7 @@ var show = function() {
 
 };
 
-var currencies = ['euro', 'dollar', 'pound', 'yen', 'ruble', 'rupee'];
+var currencies = ['euro', 'dollar', 'pound', 'yen', 'ruble', 'rupee', 'rial'];
 
 var updateCurrency = function(currency) {
   var index = currencies.indexOf(currency);
@@ -76,6 +76,23 @@ $(document).on('click', '.currency', function() {
     updateCurrency(currencies[index + 1]);
 });
 
+var getRate = function() { return localStorage['rate'] || 10; }
+var setRate = function(rate) { localStorage['rate'] = rate; }
+var getRateUnit = function() { return localStorage['rateUnit'] || 'hourly'; }
+var setRateUnit = function(unit) { localStorage['rateUnit'] = unit; }
+var getWorkingHours = function() { return localStorage['workingHours'] || 160; }
+var setWorkingHours = function(hours) { localStorage['workingHours'] = hours; }
+
+var rateUnits = {
+  'monthly': 'per month',
+  'hourly': 'per hour',
+}
+
+var showRate = function() {
+  $('#rate #rateamount').html(getRate());
+  $('#rate #rateunit').html(rateUnits[getRateUnit()]);
+}
+
 $(document).ready(function() {
   $('#main input#cost').keyup(show);
   $('#main input#cost').keydown(show);
@@ -85,6 +102,8 @@ $(document).ready(function() {
   $('#main input#cost').blur(show);
 
   updateCurrency(localStorage['currency']);
+
+  showRate();
 
   var colors = [
     'default', 'black',

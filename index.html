@@ -2,11 +2,14 @@
 <html>
   <head>
     <title>Cost In Life</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Language" content="fa" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/xm-yekan" type="text/css"/>
 
     <link href="index.css" rel="stylesheet">
     <script src="index.js"></script>
@@ -23,12 +26,27 @@
           <span yen>&yen;</span>
           <span rupee>&#8377;</span>
           <span ruble>&#8381;</span>
+          <span rial>ریال</span>
         </div>
-        <input id="cost" type="text" placeholder="Enter the price ..."/>
+        <input tabindex="0" autofocus id="cost" type="text" placeholder="Enter the price ..."/>
         <div id="result">
           <div>It will cost you <span id="amount"></span> of your life.</div>
           <div class="small" id="working">or working <span id="workingamount"></span>.</div>
         </div>
+        <br>
+        <div class="tiny" id="rate">assuming you earn
+          <span id="rateamount" class="num"></span>
+          <div class="currency">
+            <span euro>&euro;</span>
+            <span dollar>$</span>
+            <span pound>&pound;</span>
+            <span yen>&yen;</span>
+            <span rupee>&#8377;</span>
+            <span ruble>&#8381;</span>
+            <span rial>ریال</span>
+          </div>
+          <span id="rateunit"></span>
+        .</div>
       </div>
     </section>
   </body>
