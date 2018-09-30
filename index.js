@@ -55,12 +55,13 @@ var show = function() {
 
 var currencies = ['euro', 'dollar', 'pound', 'yen', 'ruble', 'rupee', 'rial'];
 
-var updateCurrency = function(currency) {
+var updateCurrency = function(currency, skipStorage) {
   var index = currencies.indexOf(currency);
   if (index != -1) {
     $('body').attr('currency', currency);
 
-    localStorage.setItem('currency', currency);
+    if (!skipStorage)
+      localStorage.setItem('currency', currency);
 
     for (var ind = 0; ind < index; ind++) $('.currency span[' + currencies[ind] + ']').addClass('passed');
     for (var ind = index; ind < currencies.length; ind++) $('.currency span[' + currencies[ind] + ']').removeClass('passed');
@@ -93,20 +94,23 @@ var updateWorkingHours = function() {
 }
 
 var getRate = function() { return localStorage['rate'] || 10; }
-var setRate = function(rate, skipInput) {
-  localStorage['rate'] = rate;
+var setRate = function(rate, skipInput, skipStorage) {
+  if (!skipStorage)
+    localStorage['rate'] = rate;
   showRate(skipInput);
 }
 
 var getRateUnit = function() { return localStorage['rateUnit'] || 'hourly'; }
-var setRateUnit = function(unit) {
-  localStorage['rateUnit'] = unit;
+var setRateUnit = function(unit, skipStorage) {
+  if (!skipStorage)
+    localStorage['rateUnit'] = unit;
   $('body').attr('rateunit', unit);
 }
 
 var getWorkingHours = function() { return localStorage['workingHours'] || 160; }
-var setWorkingHours = function(hours, skipInput) {
-  localStorage['workingHours'] = hours;
+var setWorkingHours = function(hours, skipInput, skipStorage) {
+  if (!skipStorage)
+    localStorage['workingHours'] = hours;
   $('#rateedit #monthly-hint #workinghours').html(hours);
   if (!skipInput) $('#hoursedit input#hours').val(hours);
 }
@@ -159,6 +163,22 @@ var addRateUnitElements = function() {
   );
 }
 
+var dataStored = function() {
+  return localStorage['currency']
+      || localStorage['rate']
+      || localStorage['rateUnit']
+      || localStorage['workinghours'];
+}
+
+var clearData = function() {
+  localStorage.removeItem('currency');
+  localStorage.removeItem('rate');
+  localStorage.removeItem('rateUnit');
+  localStorage.removeItem('workingHours');
+
+  $('button#clear-data').html('All Data Cleared').addClass('disabled');
+}
+
 $(document).ready(function() {
   var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -171,16 +191,21 @@ $(document).ready(function() {
   bindInput('#rateedit input#rate', updateRate);
   bindInput('#hoursedit input#hours', updateWorkingHours);
 
-  updateCurrency(localStorage['currency']);
-  setRateUnit(getRateUnit());
-  setRate(getRate());
-  setWorkingHours(getWorkingHours());
+  updateCurrency(localStorage['currency'], true);
+  setRateUnit(getRateUnit(), true);
+  setRate(getRate(), false, true);
+  setWorkingHours(getWorkingHours(), false, true);
 
   $('[tostate]').click(function(){ setState($(this).attr('tostate')); });
 
   $('[menu]').click(function() {
     if ($('body').attr('menu-active') == 'on') $('body').attr('menu-active', 'off');
     else $('body').attr('menu-active', 'on');
+
+    if (dataStored())
+      $('button#clear-data').html('Clear Data').removeClass('disabled');
+    else
+      $('button#clear-data').html('All Data Cleared').addClass('disabled');
   });
 
   var colors = [
