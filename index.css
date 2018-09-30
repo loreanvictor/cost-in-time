@@ -98,6 +98,7 @@ section {
 
   transform-origin: bottom center;
   z-index: 0;
+  transition: opacity .15s;
 }
 
 section#rateedit {
@@ -330,6 +331,22 @@ body[rateunit="monthly"] #rateedit #monthly-hint {
 }
 
 @media screen and (max-width: 640px) {
+  section {
+    opacity: 0;
+  }
+
+  #holder[state="main"] section#main {
+    opacity: 1;
+  }
+
+  #holder[state="rateedit"] section#rateedit {
+    opacity: 1;
+  }
+
+  #holder[state="hoursedit"] section#hoursedit {
+    opacity: 1;
+  }
+
   section>div {
     width: 90vw;
     height: auto;
