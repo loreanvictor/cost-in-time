@@ -68,6 +68,7 @@ var updateCurrency = function(currency) {
 }
 
 $(document).on('click', '.currency', function() {
+  if ($(this).is('[readonly]')) return;
   var current = $('body').attr('currency');
   var index = currencies.indexOf(current);
   if (index >= currencies.length - 1 || index == -1)
@@ -159,6 +160,11 @@ var addRateUnitElements = function() {
 }
 
 $(document).ready(function() {
+  var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isSafari)
+    $('body').attr('is-safari', true);
+
   addCurrencyElements();
   addRateUnitElements();
   bindInput('#main input#cost', show);
@@ -171,6 +177,11 @@ $(document).ready(function() {
   setWorkingHours(getWorkingHours());
 
   $('[tostate]').click(function(){ setState($(this).attr('tostate')); });
+
+  $('[menu]').click(function() {
+    if ($('body').attr('menu-active') == 'on') $('body').attr('menu-active', 'off');
+    else $('body').attr('menu-active', 'on');
+  });
 
   var colors = [
     'default', 'black',

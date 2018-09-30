@@ -28,8 +28,9 @@
           <br>
           <div class="tiny" id="rate" tostate="rateedit">assuming you earn
             <span id="rateamount" class="num"></span>
-            <div class="currency"></div>
+            <div class="currency" readonly></div>
             <div class="rateunit" readonly></div>
+            <br> click to change
           </div>
         </div>
       </section>
@@ -43,7 +44,10 @@
           <div class="rateunit"></div>
           <br><br>
           <div id="monthly-hint"
-            class="small" tostate="hoursedit">assuming you work <span id="workinghours" class="num"></span> hours each month</span></div>
+            class="tiny" tostate="hoursedit">
+            assuming you work <span id="workinghours" class="num"></span> hours each month</span>
+            <br>click to change
+          </div>
           <br><br>
           <div actions>
             <button tostate="main">Ok</button>
@@ -62,6 +66,12 @@
           </div>
         </div>
       </section>
+    </div>
+
+    <div menu>
+      <div bar bar1></div>
+      <div bar bar2></div>
+      <div bar bar3></div>
     </div>
   </body>
 </html>

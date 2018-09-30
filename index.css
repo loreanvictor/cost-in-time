@@ -98,7 +98,7 @@ section {
 
   transform-origin: bottom center;
   z-index: 0;
-  transition: opacity .15s;
+  transition: opacity .25s;
 }
 
 section#rateedit {
@@ -329,6 +329,41 @@ body[rateunit="monthly"] #rateedit #monthly-hint {
   opacity: 1;
   transform: translateX(0);
 }
+
+[menu] {
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  text-align: center;
+  background: rgba(0, 0, 0, .85);
+  cursor: pointer;
+}
+
+[is-safari] [menu] {
+  background: rgba(0, 0, 0, .15);
+  backdrop-filter: blur(20px);
+}
+
+[menu] [bar] {
+  width: 32px;
+  height: 2px;
+  background: white;
+  position: absolute;
+  border-radius: 4px;
+  left: calc(50% - 16px);
+  transition: transform .15s;
+}
+
+[menu] [bar1] { top: 20px; }
+[menu] [bar2] { top: 28px; }
+[menu] [bar3] { top: 36px; }
+
+[menu-active="on"] [menu] [bar1] { transform: translateY(8px) rotate(45deg); }
+[menu-active="on"] [menu] [bar3] { transform: translateY(-8px) rotate(-45deg); }
+[menu-active="on"] [menu] [bar2] { transform: translateY(32px); }
 
 @media screen and (max-width: 640px) {
   section {
