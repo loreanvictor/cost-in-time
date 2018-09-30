@@ -3,7 +3,6 @@
   <head>
     <title>Cost In Life</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="Content-Language" content="fa" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,39 +14,54 @@
     <script src="index.js"></script>
   </head>
   <body currency="euro">
-    <section id="main">
-      <div>
-        <p>How much do you want to spend?</p>
-        <br>
-        <div class="currency">
-          <span euro>&euro;</span>
-          <span dollar>$</span>
-          <span pound>&pound;</span>
-          <span yen>&yen;</span>
-          <span rupee>&#8377;</span>
-          <span ruble>&#8381;</span>
-          <span rial>ریال</span>
-        </div>
-        <input tabindex="0" autofocus id="cost" type="text" placeholder="Enter the price ..."/>
-        <div id="result">
-          <div>It will cost you <span id="amount"></span> of your life.</div>
-          <div class="small" id="working">or working <span id="workingamount"></span>.</div>
-        </div>
-        <br>
-        <div class="tiny" id="rate">assuming you earn
-          <span id="rateamount" class="num"></span>
-          <div class="currency">
-            <span euro>&euro;</span>
-            <span dollar>$</span>
-            <span pound>&pound;</span>
-            <span yen>&yen;</span>
-            <span rupee>&#8377;</span>
-            <span ruble>&#8381;</span>
-            <span rial>ریال</span>
+    <div id="holder" state="main">
+      <section id="main">
+        <div>
+          <p>How much do you want to spend?</p>
+          <br>
+          <div class="currency"></div>
+          <input tabindex="0" autofocus id="cost" type="text" placeholder="Enter the price ..."/>
+          <div id="result">
+            <div>It will cost you <span id="amount"></span> of your life.</div>
+            <div class="small" id="working">or working <span id="workingamount"></span>.</div>
           </div>
-          <span id="rateunit"></span>
-        .</div>
-      </div>
-    </section>
+          <br>
+          <div class="tiny" id="rate" tostate="rateedit">assuming you earn
+            <span id="rateamount" class="num"></span>
+            <div class="currency"></div>
+            <div class="rateunit" readonly></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rateedit">
+        <div>
+          <p>How much do you earn?</p>
+          <br>
+          <div class="currency"></div>
+          <input id="rate" type="text" placeholder="Enter your income ..."/>
+          <div class="rateunit"></div>
+          <br><br>
+          <div id="monthly-hint"
+            class="small" tostate="hoursedit">assuming you work <span id="workinghours" class="num"></span> hours each month</span></div>
+          <br><br>
+          <div actions>
+            <button tostate="main">Ok</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="hoursedit">
+        <div>
+          <p>How many hours you work each month?</p>
+          <br>
+          <input id="hours" type="text" placeholder="Enter the hourcount ..."/>
+          <br><br>
+          <div actions>
+            <button tostate="rateedit">Ok</button>
+          </div>
+        </div>
+      </section>
+    </div>
   </body>
 </html>

@@ -4,77 +4,83 @@ body, html, * {
   font-family: 'Bai Jamjuree', 'XMYekanRegular', sans-serif;
   font-size: 24px;
   color: #424242;
-  background: #f5f5f5;
+  background-color: #f5f5f5;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 * {
-  background: inherit;
+  background-color: inherit;
   color: inherit;
   border-color: inherit;
 }
 
 body.blue {
-  background: #bcdbdf;
+  background-color: #bcdbdf;
   color: #235784;
   border-color: #235784;
 }
 
 body.blue-inv {
-  background: #182952;
+  background-color: #182952;
   color: #e14594;
   border-color: #e14594;
 }
 
 body.green {
-  background: #d0efb5;
+  background-color: #d0efb5;
   color: #155e63;
   border-color: #155e63;
 }
 
 body.green-inv {
-  background: #144d53;
+  background-color: #144d53;
   color: #e4eddb;
   border-color: #e4eddb;
 }
 
 body.purple {
-  background: #ffdfd3;
+  background-color: #ffdfd3;
   color: #957dad;
   border-color: #957dad;
 }
 
 body.purple-inv {
-  background: #77529e;
+  background-color: #77529e;
   color: #dcb5ff;
   border-color: #dcb5ff;
 }
 
 body.orange {
-  background: #f8c43a;
+  background-color: #f8c43a;
   color: #c93d1b;
   border-color: #c93d1b;
 }
 
 body.orange-inv {
-  background: #7c203a;
+  background-color: #7c203a;
   color: #ff9f68;
   border-color: #ff9f68;
 }
 
 body.yellow {
-  background: #f2f2b0;
+  background-color: #f2f2b0;
   color: #5c3c10;
   border-color: #5c3c10;
 }
 
 body.yellow-inv {
-  background: #005874;
+  background-color: #005874;
   color: #ffbe00;
   border-color: #ffbe00;
 }
 
 body.black {
-  background: #424242;
+  background-color: #424242;
   color: #f5f5f5;
   border-color: #f5f5f5;
 }
@@ -85,9 +91,21 @@ section {
   position: absolute;
   left: 0;
   top: 0;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transform-origin: bottom center;
+  z-index: 0;
+}
+
+section#rateedit {
+  transform: rotate(90deg);
+}
+
+section#hoursedit {
+  transform: rotate(180deg);
 }
 
 section>div {
@@ -110,6 +128,26 @@ p {
 span {
   font-size: inherit;
   color: inherit;
+}
+
+div[actions] {
+  text-align: right;
+}
+
+button {
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  min-width: 128px;
+  border: 2px solid;
+  outline: none;
+  font-weight: bold;
+  transition: transform .15s;
+}
+
+button:hover {
+  transform: scale(1.1);
 }
 
 .num {
@@ -140,6 +178,35 @@ input::placeholder {
   color: inherit;
 }
 
+[tostate] { cursor: pointer; }
+
+#holder {
+  width: 100vw;
+  height: 100vh;
+  transition: transform .25s ease-in-out;
+  transform-origin: bottom center;
+}
+
+#holder[state="main"] section#main {
+  z-index: 1;
+}
+
+#holder[state="rateedit"] {
+  transform: rotate(-90deg);
+}
+
+#holder[state="rateedit"] section#rateedit {
+  z-index: 1;
+}
+
+#holder[state="hoursedit"] {
+  transform: rotate(-180deg);
+}
+
+#holder[state="hoursedit"] section#hoursedit {
+  z-index: 1;
+}
+
 #result {
   margin-top: 32px;
   opacity: 0;
@@ -161,6 +228,11 @@ input::placeholder {
 #result.active #working.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+#rate {
+  margin-top: 24px;
+  cursor: pointer;
 }
 
 .currency {
@@ -216,3 +288,43 @@ body[currency="yen"] .currency [yen] { opacity: 1; transform: translateX(0); }
 body[currency="rupee"] .currency [rupee] { opacity: 1; transform: translateX(0); }
 body[currency="ruble"] .currency [ruble] { opacity: 1; transform: translateX(0); }
 body[currency="rial"] .currency [rial] { opacity: 1; transform: translateX(0); }
+
+.rateunit {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width: 116px;
+  height: 24px;
+}
+
+.rateunit span {
+  position: absolute;
+  top: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  opacity: 0;
+  transition: transform .15s, opacity .15s;
+}
+
+.rateunit [monthly] { transform: translateY(32px); }
+.rateunit [hourly] { transform: translateY(-32px); }
+
+body[rateunit="monthly"] .rateunit [monthly] { opacity: 1; transform: translateY(0); }
+body[rateunit="hourly"] .rateunit [hourly] { opacity: 1; transform: translateY(0); }
+
+.tiny .rateunit {
+  font-size: 16px;
+  width: 88px;
+}
+
+#rateedit #monthly-hint {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .15s, transform .15s;
+}
+
+body[rateunit="monthly"] #rateedit #monthly-hint {
+  opacity: 1;
+  transform: translateX(0);
+}

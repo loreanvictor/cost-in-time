@@ -34,7 +34,7 @@ var show = function() {
   try {
     var price = parseInt($(this).val().replace(/\,/g, ''));
     if (price > 0) {
-      var calcresult = calc(price, 10);
+      var calcresult = calc(price, getHourlyRate());
       $('#main #result').addClass('active');
       $('#main #result #amount').html(calcresult.general);
 
@@ -76,34 +76,101 @@ $(document).on('click', '.currency', function() {
     updateCurrency(currencies[index + 1]);
 });
 
-var getRate = function() { return localStorage['rate'] || 10; }
-var setRate = function(rate) { localStorage['rate'] = rate; }
-var getRateUnit = function() { return localStorage['rateUnit'] || 'hourly'; }
-var setRateUnit = function(unit) { localStorage['rateUnit'] = unit; }
-var getWorkingHours = function() { return localStorage['workingHours'] || 160; }
-var setWorkingHours = function(hours) { localStorage['workingHours'] = hours; }
+$(document).on('click', '.rateunit', function() {
+  if ($(this).is('[readonly]')) return;
+  var current = getRateUnit();
+  if (current == 'monthly') setRateUnit('hourly');
+  else setRateUnit('monthly');
+});
 
-var rateUnits = {
-  'monthly': 'per month',
-  'hourly': 'per hour',
+var updateRate = function() {
+  setRate(parseInt($(this).val().replace(/\,/g, '')), true);
 }
 
-var showRate = function() {
+var updateWorkingHours = function() {
+  setWorkingHours(parseInt($(this).val()), true);
+}
+
+var getRate = function() { return localStorage['rate'] || 10; }
+var setRate = function(rate, skipInput) {
+  localStorage['rate'] = rate;
+  showRate(skipInput);
+}
+
+var getRateUnit = function() { return localStorage['rateUnit'] || 'hourly'; }
+var setRateUnit = function(unit) {
+  localStorage['rateUnit'] = unit;
+  $('body').attr('rateunit', unit);
+}
+
+var getWorkingHours = function() { return localStorage['workingHours'] || 160; }
+var setWorkingHours = function(hours, skipInput) {
+  localStorage['workingHours'] = hours;
+  $('#rateedit #monthly-hint #workinghours').html(hours);
+  if (!skipInput) $('#hoursedit input#hours').val(hours);
+}
+
+var getHourlyRate = function() {
+  var rateUnit = getRateUnit();
+  if (rateUnit == 'monthly') {
+    return getRate() / getWorkingHours();
+  }
+  else if (rateUnit == 'hourly') {
+    return getRate();
+  }
+}
+
+var showRate = function(skipInput) {
   $('#rate #rateamount').html(getRate());
-  $('#rate #rateunit').html(rateUnits[getRateUnit()]);
+  if (!skipInput)
+    $('#rateedit input#rate').val(getRate());
+}
+
+var setState = function(state) {
+  $('#holder').attr('state', state);
+}
+
+var bindInput = function(input, handler) {
+  $(input).keyup(handler);
+  $(input).keydown(handler);
+  $(input).keypress(handler);
+  $(input).click(handler);
+  $(input).focus(handler);
+  $(input).blur(handler);
+}
+
+var addCurrencyElements = function() {
+  $('.currency').html(
+                '<span euro>&euro;</span>'
+                +'<span dollar>$</span>'
+                +'<span pound>&pound;</span>'
+                +'<span yen>&yen;</span>'
+                +'<span rupee>&#8377;</span>'
+                +'<span ruble>&#8381;</span>'
+                +'<span rial>ریال</span>'
+                );
+}
+
+var addRateUnitElements = function() {
+  $('.rateunit').html(
+    '<span hourly>per hour</span>'
+    + '<span monthly>per month</span>'
+  );
 }
 
 $(document).ready(function() {
-  $('#main input#cost').keyup(show);
-  $('#main input#cost').keydown(show);
-  $('#main input#cost').keypress(show);
-  $('#main input#cost').click(show);
-  $('#main input#cost').focus(show);
-  $('#main input#cost').blur(show);
+  addCurrencyElements();
+  addRateUnitElements();
+  bindInput('#main input#cost', show);
+  bindInput('#rateedit input#rate', updateRate);
+  bindInput('#hoursedit input#hours', updateWorkingHours);
 
   updateCurrency(localStorage['currency']);
+  setRateUnit(getRateUnit());
+  setRate(getRate());
+  setWorkingHours(getWorkingHours());
 
-  showRate();
+  $('[tostate]').click(function(){ setState($(this).attr('tostate')); });
 
   var colors = [
     'default', 'black',
