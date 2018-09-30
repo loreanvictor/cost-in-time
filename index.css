@@ -328,3 +328,18 @@ body[rateunit="monthly"] #rateedit #monthly-hint {
   opacity: 1;
   transform: translateX(0);
 }
+
+@media screen and (max-width: 640px) {
+  section>div {
+    width: 90vw;
+    height: auto;
+  }
+
+  input {
+    width: 156px;
+  }
+
+  input::placeholder {
+    font-size: 14px;
+  }
+}
